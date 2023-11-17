@@ -1,10 +1,10 @@
 use "treetype.sml";
 
-fun preorder Lf = []
-| preorder (Br(v, t1, t2)) = [v] @ preorder t1 @ preorder t2;
+fun preorder (Lf, acc) = acc
+| preorder (Br(v, t1, t2), acc) = v::preorder(t1, preorder (t2, acc));
 
-fun inorder Lf = []
-| inorder (Br(v, t1, t2)) = inorder t1 @ [v] @ inorder t2;
+fun inorder (Lf, acc) = acc
+| inorder (Br(v, t1, t2), acc) = inorder(t1, v::inorder(t2, acc));
 
-fun postorder Lf = []
-| postorder (Br(v, t1, t2)) = postorder t1 @ postorder t2 @ [v];
+fun postorder (Lf, acc) = acc
+| postorder (Br(v, t1, t2), acc) = postorder(t1, postorder(t2, v::acc));
